@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 Audio Scam Analyzer | AI-Powered Fraud Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🔐</span>
+                <span class="logo-text">Audio Scam Analyzer</span>
+            </div>
+            <div class="nav-tagline">Secure Detection Suite</div>
+        </div>
+    </nav>
+
+    <div class="main-wrapper">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>🔐 AI-Powered Audio Call Scam Analyzer</h1>
+                <p class="hero-subtitle">Detect financial fraud through intelligent voice analysis</p>
+                <p class="hero-description">Upload a recorded phone call and get explainable fraud detection powered by advanced AI</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Main Content -->
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="section-header">
+                    <h2>📞 Upload Your Audio Call</h2>
+                    <p>Drag & drop or click to select</p>
+                </div>
+
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon-wrapper">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3>Drop your audio file here</h3>
+                    <p>or click to browse from your device</p>
+                    <p class="file-formats">All audio formats supported: WAV • MP3 • OGG • FLAC • M4A • AAC • WMA</p>
+                    <input type="file" id="fileInput" accept="audio/*" hidden>
+                </div>
+
+                <div id="filePreview" class="file-preview" style="display: none;">
+                    <div class="preview-content">
+                        <span class="file-icon">📁</span>
+                        <div>
+                            <p class="file-name" id="fileName"></p>
+                            <p class="file-size" id="fileSize"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Panel -->
+                <div class="settings-panel">
+                    <div class="settings-group">
+                        <label for="languageSelect">
+                            <span class="label-icon">🌍</span>
+                            <span>Language (Optional - Auto-detect if not selected)</span>
+                        </label>
+                        <select id="languageSelect">
+                            <option value="">Auto-Detect</option>
+                            <option value="en">🇺🇸 English</option>
+                            <option value="hi">🇮🇳 Hindi</option>
+                            <option value="ta">🇮🇳 Tamil</option>
+                            <option value="te">🇮🇳 Telugu</option>
+                            <option value="ml">🇮🇳 Malayalam</option>
+                            <option value="kn">🇮🇳 Kannada</option>
+                            <option value="bn">🇮🇳 Bengali</option>
+                            <option value="gu">🇮🇳 Gujarati</option>
+                            <option value="mr">🇮🇳 Marathi</option>
+                            <option value="es">🇪🇸 Spanish</option>
+                            <option value="fr">🇫🇷 French</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Analyze Button -->
+                <button class="analyze-btn" id="analyzeBtn">
+                    <span class="btn-icon">🚀</span>
+                    <span class="btn-text">Analyze Call</span>
+                </button>
+
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="loading-container" style="display: none;">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                    </div>
+                    <p id="loadingText" class="loading-text">Processing your audio...</p>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                <div class="section-header">
+                    <h2>📊 Analysis Results</h2>
+                </div>
+
+                <!-- Risk Assessment Card -->
+                <div class="risk-card" id="riskCard">
+                    <div class="risk-content">
+                        <h3>⚠️ Risk Assessment</h3>
+                        <div class="risk-score-container">
+                            <div class="risk-score" id="riskScore"></div>
+                            <div class="risk-details">
+                                <p class="risk-label" id="riskLabel"></p>
+                                <div class="risk-meter">
+                                    <div class="risk-bar" id="riskBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transcription Card -->
+                <div class="card transcription-card">
+                    <h3>🗣️ Call Transcription</h3>
+                    <div class="transcription-text" id="transcriptionText"></div>
+                </div>
+
+                <!-- Detected Patterns Card -->
+                <div class="card patterns-card">
+                    <h3>🚨 Detected Scam Patterns</h3>
+                    <div id="patternsList" class="patterns-list"></div>
+                </div>
+
+                <!-- Known Scams Card -->
+                <div class="card known-scams-card" id="knownScamsCard" style="display: none;">
+                    <h3>🎯 Known Scam Campaign Match</h3>
+                    <div id="knownScamsContent"></div>
+                </div>
+
+                <!-- Voice Analysis Card -->
+                <div class="card voice-analysis-card" id="voiceAnalysisCard" style="display: none;">
+                    <h3>🎤 Voice Characteristics</h3>
+                    <div id="voiceAnalysisContent"></div>
+                </div>
+
+                <!-- Emotional Analysis Card -->
+                <div class="card emotional-analysis-card" id="emotionalAnalysisCard" style="display: none;">
+                    <h3>😠 Emotional Tone & Tactics</h3>
+                    <div id="emotionalAnalysisContent"></div>
+                </div>
+
+                <!-- Entity Analysis Card -->
+                <div class="card entity-analysis-card" id="entityAnalysisCard" style="display: none;">
+                    <h3>🔍 Extracted Information</h3>
+                    <div id="entityAnalysisContent"></div>
+                </div>
+
+                <!-- Recommendation Card -->
+                <div class="card recommendation-card" id="recommendationCard">
+                    <h3 id="recommendationTitle"></h3>
+                    <p id="recommendationText"></p>
+                </div>
+
+                <!-- Metadata -->
+                <div class="card metadata-card">
+                    <h3>ℹ️ Call Information</h3>
+                    <div class="metadata-grid">
+                        <div class="metadata-item">
+                            <span class="metadata-label">Duration</span>
+                            <span class="metadata-value" id="duration">-</span>
+                        </div>
+                        <div class="metadata-item">
+                            <span class="metadata-label">Language</span>
+                            <span class="metadata-value" id="language">-</span>
+                        </div>
+                        <div class="metadata-item">
+                            <span class="metadata-label">Confidence</span>
+                            <span class="metadata-value" id="confidence">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Card -->
+                <div class="card timeline-card">
+                    <h3>📈 Risk Progression Timeline</h3>
+                    <div id="timelineChart" class="timeline-chart"></div>
+                </div>
+
+                <!-- Explanation Card -->
+                <div class="card explanation-card">
+                    <h3>💡 Detailed Explanation</h3>
+                    <div id="explanation" class="explanation-text"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn-primary" id="newAnalysisBtn">
+                        <span>📞 Analyze Another Call</span>
+                    </button>
+                    <button class="btn-secondary" id="downloadBtn">
+                        <span>📥 Download Report</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section id="errorSection" class="error-section" style="display: none;">
+                <div class="error-card">
+                    <div class="error-icon">❌</div>
+                    <h3>Analysis Failed</h3>
+                    <p id="errorMessage"></p>
+                    <button class="btn-secondary" onclick="location.reload()">Try Again</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-security">🔒 <strong>Privacy First:</strong> Your audio is processed locally and never stored on our servers</p>
+                <p class="footer-credit">Built with ❤️ for AI-Powered Fraud Prevention | Hackathon Edition 2026</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

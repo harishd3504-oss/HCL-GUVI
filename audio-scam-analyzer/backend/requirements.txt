@@ -1,0 +1,17 @@
+# ============================================
+# AI-Powered Audio Call Scam Analyzer
+# Requirements.txt
+# ============================================
+
+# Web Framework
+fastapi
+uvicorn
+python-multipart
+pydantic
+python-dotenv
+
+# Audio Processing
+librosa
+soundfile
+numpy
+scipy
